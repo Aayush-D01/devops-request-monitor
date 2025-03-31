@@ -1,5 +1,5 @@
 
-import { RequestStatus } from "@/types/request";
+import { DevOpsRequest, PriorityLevel, RequestStatus } from "@/types/request";
 
 // Generate a random timestamp within the last 30 days
 const getRandomDate = () => {
@@ -50,6 +50,8 @@ export const generateMockRequests = (count: number = 10) => {
     "QA",
   ];
 
+  const priorities: PriorityLevel[] = ["Low", "Medium", "High"];
+
   return Array.from({ length: count }, (_, i) => {
     // Randomly select a status with more probability for earlier stages
     const statusIndex = Math.floor(Math.random() * Math.random() * statuses.length);
@@ -81,7 +83,7 @@ export const generateMockRequests = (count: number = 10) => {
       estimatedCost: Math.floor(Math.random() * 10000) + 500,
       currentStatus,
       timestamps,
-      priority: ["Low", "Medium", "High"][Math.floor(Math.random() * 3)],
+      priority: priorities[Math.floor(Math.random() * priorities.length)],
     };
   });
 };
