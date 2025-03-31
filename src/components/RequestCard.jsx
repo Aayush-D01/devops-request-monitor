@@ -14,14 +14,10 @@ import { cn } from "@/lib/utils";
 export const RequestCard = ({ request, onClick, className }) => {
   const getPriorityColor = (priority) => {
     switch (priority) {
-      case "High":
-        return "text-red-600";
-      case "Medium":
-        return "text-amber-600";
-      case "Low":
-        return "text-green-600";
-      default:
-        return "text-gray-600";
+      case "High": return "text-red-600";
+      case "Medium": return "text-amber-600";
+      case "Low": return "text-green-600";
+      default: return "text-gray-600";
     }
   };
 
