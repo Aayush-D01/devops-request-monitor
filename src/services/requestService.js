@@ -25,6 +25,14 @@ export const generateMockRequests = (count = 10) => {
   ];
 
   const priorities = ["Low", "Medium", "High"];
+  
+  const salespeople = [
+    null, // For unassigned requests
+    "Alex Johnson", 
+    "Sarah Miller", 
+    "David Chen", 
+    "Maria Garcia"
+  ];
 
   return Array.from({ length: count }, (_, i) => {
     // Randomly select a status with more probability for earlier stages
@@ -48,6 +56,11 @@ export const generateMockRequests = (count = 10) => {
       "Closed": statusIndex >= 12 ? getRandomDate() : null,
     };
 
+    // Only assign if status is past "In Review"
+    const assignedTo = statusIndex >= 2 
+      ? salespeople[Math.floor(Math.random() * salespeople.length)]
+      : null;
+
     return {
       id: `REQ-${1000 + i}`,
       tool: tools[Math.floor(Math.random() * tools.length)],
@@ -58,6 +71,7 @@ export const generateMockRequests = (count = 10) => {
       currentStatus,
       timestamps,
       priority: priorities[Math.floor(Math.random() * priorities.length)],
+      assignedTo,
     };
   });
 };
@@ -67,4 +81,30 @@ export const fetchRequests = async () => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 800));
   return generateMockRequests(12);
+};
+
+// Simulate assigning a request to a salesperson
+export const assignRequestToSalesperson = async (requestId, salesperson) => {
+  console.log(`Assigning request ${requestId} to ${salesperson}`);
+  // In a real app, this would make an API call
+  await new Promise(resolve => setTimeout(resolve, 800)); // Simulate API delay
+  
+  // In a real app, this would return the updated request
+  return {
+    success: true,
+    message: `Request ${requestId} assigned to ${salesperson}`,
+  };
+};
+
+// Simulate updating a request status
+export const updateRequestStatus = async (requestId, newStatus) => {
+  console.log(`Updating request ${requestId} to status: ${newStatus}`);
+  // In a real app, this would make an API call
+  await new Promise(resolve => setTimeout(resolve, 800)); // Simulate API delay
+  
+  // In a real app, this would return the updated request
+  return {
+    success: true,
+    message: `Request ${requestId} status updated to ${newStatus}`,
+  };
 };
